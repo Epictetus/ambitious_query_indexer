@@ -34,17 +34,17 @@ class ObjectCall
   end
 
   def execute!
-    if self.params.blank?
-      self.object.constantize.send(self.method.to_sym)
-    else
-      begin
+    begin
+      # in a begin/rescue because the potential for this to go wrong south of here is currently quite large.
+      if self.params.blank?
+        self.object.constantize.send(self.method.to_sym)
+      else
         # bypass validations somehow?
-        # in a begin/rescue because the potential for this to go wrong south of here is currently quite large.
         self.object.constantize.send(self.method.to_sym, *self.faked_params)
-      rescue
-        RAILS_DEFAULT_LOGGER.debug(".... [AQI]: Calling #{self.object}.#{self.method}(#{self.faked_params.inspect}) (from #{self.params.inspect}) failed")
-        nil
       end
+    rescue
+      RAILS_DEFAULT_LOGGER.debug(".... [AQI]: Calling #{self.object}.#{self.method}(#{self.faked_params.inspect}) (from #{self.params.inspect}) failed")
+      nil
     end
   end
   
