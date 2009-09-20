@@ -1,6 +1,6 @@
 namespace :ambitious_query_indexer do
   desc "Analyse application queries for index quality"
-  task :analyse do
+  task :analyze do
     
     # Load Rails environment
     RAILS_ENV = 'test'
