@@ -6,10 +6,6 @@ This plugin is still in beta; at the moment there are various queries that it do
 
 I'm really eager for feedback on this plugin. If you have any thoughts or ideas, please let me know.
 
-h2. Rationale
-
-This plugin works on the principle that while it's possible to make a good guess at how a table should be indexed based upon its columns and contents, by looking at the actual queries your app is running, it will be possible to get much better indexes in place.
-
 h2. Installation
 
 @script/plugin install git://github.com/samdanavia/ambitious_model_loader.git@
@@ -32,7 +28,7 @@ Run the following from the root of your Rails app:
 
 @rake test:plugins PLUGIN=ambitious_query_indexer@
 	
-_*NB:* This plugin's tests create tables in your test database. Any tables created will be prefixed with 'aqi_test'. In the unlikely event that you have a table that follows this same convention, you may see it trashed in the test environment.)_
+_*NB:* This plugin's tests create tables in your test database. Any tables created will be prefixed with 'aqi_test'. In the unlikely event that you have a table that follows this same convention, you may see it trashed in the test environment._
 
 h2. Upcoming features/enhancements
 
