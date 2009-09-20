@@ -8,7 +8,7 @@ I'm really eager for feedback on this plugin. If you have any thoughts or ideas,
 
 h2. Installation
 
-@script/plugin install git://github.com/samdanavia/ambitious_model_loader.git@
+@script/plugin install git://github.com/samdanavia/ambitious_query_indexer.git@
 
 h3. Dependencies
 
