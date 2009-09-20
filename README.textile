@@ -22,6 +22,8 @@ In the root of your Rails app, run the following:
 
 @rake ambitious_query_indexer:analyze@
 
+This plugin runs queries on your test database. Ensure that it is up-to-date ('rake db:migrate RAILS_ENV=test') and representative of your live schema for best results.
+
 h2. Testing
 
 Run the following from the root of your Rails app:
