@@ -28,13 +28,30 @@ class TableIndex
   
   def exists_in_database?
     existing_indexes = []
+    connection = ActiveRecord::Base.connection
     
-    ActiveRecord::Base.connection.indexes(self.table).each do |index|
+    connection.indexes(self.table).each do |index|
       existing_indexes << index.columns.sort
     end
     
-    existing_indexes << Array(ActiveRecord::Base.connection.primary_key(self.table))
+    existing_indexes << Array(get_table_primary_key)
         
     existing_indexes.include?(self.fields.sort)
+  end
+  
+  protected
+  def get_table_primary_key
+    connection = ActiveRecord::Base.connection
+    
+    if connection.respond_to?(:primary_key)
+      # This method introduced in ActiveRecord 2.3.4
+      connection.primary_key(self.table)
+    elsif connection.respond_to?(:pk_and_sequence)
+      pk_and_sequence = connection.pk_and_sequence_for(self.table)
+      pk_and_sequence && pk_and_sequence.first
+    else
+      # Broad assumption!
+      'id'
+    end
   end
 end
