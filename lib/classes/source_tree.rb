@@ -12,7 +12,7 @@ class SourceTree
     files = []
 
     Find.find(self.path) do |file|
-      next unless file.is_rails_helper? or file.is_rails_controller?
+      next unless file.is_rails_helper? or file.is_rails_controller? or file.is_rails_view?
 
       code = IO.readlines(file).join
       file = SourceFile.new(code)

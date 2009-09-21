@@ -8,13 +8,13 @@ namespace :ambitious_query_indexer do
     
     # Load AQI
     require File.join(RAILS_ROOT,'vendor','plugins','ambitious_query_indexer','lib','ambitious_query_indexer')
+    
+    tree = []
+    tree << File.join(RAILS_ROOT,'app','controllers')  
+    tree << File.join(RAILS_ROOT,'app','helpers')
+    tree << File.join(RAILS_ROOT,'app','views')
 
-    controller_root = File.join(RAILS_ROOT,'app','controllers')
-    helper_root = File.join(RAILS_ROOT,'app','helpers')
-    
-    # No support for views at the moment. You haven't got queries coming from your views.... have you?! ;)
-    
-    indexer = AmbitiousQueryIndexer.new([controller_root, helper_root])
+    indexer = AmbitiousQueryIndexer.new(tree)
     indexer.analyse
   end
 end
