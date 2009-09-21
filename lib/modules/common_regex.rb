@@ -4,7 +4,7 @@ module CommonRegex
     :method           => '[\w\d?!,]',
     :variable         => '[@\w]',
     :params           => '[\w\d\s,.?!\[\]:]',
-    :sql_conjunctions => 'AND|OR|\|\||&&|,',
+    :sql_conjunctions => 'AND\s|OR\s|\|\|\s|&&\s|,',
   }
 
   def common_regex(identifier)

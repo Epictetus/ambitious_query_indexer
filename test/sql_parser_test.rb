@@ -31,6 +31,15 @@ class SQLParserTest < ActiveSupport::TestCase
     assert_equal parser.fetch_for_scope(:order_by), ' users.id, users.name'
   end
   
+  test "parser isn't confused by sql syntax as parts of other strings" do
+    # 'airports' contains 'or' need to check parser is looking for whole strings only
+    query = %q{SELECT * FROM airports WHERE airports.name = 'Manchester'}
+    parser = SQLParser.new
+    parser.parse(query)
+    
+    assert_equal " airports.name = 'Manchester'", parser.fetch_for_scope(:where)
+  end
+    
   test "parser suggests correct indexes" do 
     parser = setup_parser
     
