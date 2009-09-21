@@ -33,7 +33,7 @@ class SQLParser
         
     contents.gsub!(/`/,'')
     contents.split(/#{common_regex(:sql_conjunctions)}/).each do |clause|
-      scan = clause.match(/(?:([\w\d]+).)?([\w\d]+)/)
+      scan = clause.match(/([\w\d]+)\.([\w\d]+)/)
       next if scan.blank?
     
       indexes << TableIndex.new(:table => scan.captures[0], :fields => scan.captures[1])
