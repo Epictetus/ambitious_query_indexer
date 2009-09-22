@@ -64,7 +64,7 @@ class ObjectCall
   protected
   attr_accessor :source_file
   
-  def execute_single_operation(receiver = self)
+  def execute_single_operation(receiver)
     begin
       # in a begin/rescue because the potential for this to go wrong south of here is currently quite large.
       if self.params.blank?
