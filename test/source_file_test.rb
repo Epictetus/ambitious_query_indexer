@@ -8,7 +8,7 @@ class SourceFileTest < ActiveSupport::TestCase
     code = IO.readlines(file).join
     source_file = SourceFile.new(code)
     
-    assert_equal 3, source_file.object_calls.size
+    assert_equal 4, source_file.object_calls.size
   end
   
   test 'Object call location on Model.method without arguments' do
@@ -39,5 +39,24 @@ class SourceFileTest < ActiveSupport::TestCase
     assert_equal 'Article', source_file.object_calls.first.object
     assert_equal 'new', source_file.object_calls.first.method
     assert_equal ['var1','var2'], source_file.object_calls.first.params
+  end
+  
+  test 'Object call location on model = Model; model.method' do 
+    code = <<-RUBYCODE
+      a = Article.new
+      
+      a.save!
+    RUBYCODE
+    
+    source_file = SourceFile.new(code)
+    assert_equal 2, source_file.object_calls.size
+    
+    assert_equal 'Article', source_file.object_calls[0].object
+    assert_equal 'new', source_file.object_calls[0].method
+    assert_equal [], source_file.object_calls[0].params
+
+    assert_equal 'Article', source_file.object_calls[1].object
+    assert_equal 'save!', source_file.object_calls[1].method
+    assert_equal [], source_file.object_calls[1].params
   end
 end

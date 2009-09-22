@@ -17,10 +17,8 @@ class ObjectCall
   end
   
   def derive_setter_within_source_file(source_file)
-    setter_expression = /#{self.object} ?= (#{common_regex(:constant)}+)\.(#{common_regex(:method)})(\(#{common_regex(:params)}+\))?$/
-
+    setter_expression = /#{self.object} ?= (#{common_regex(:constant)}+)\.(#{common_regex(:method)}+)(\(#{common_regex(:params)}+\))?\s*$/    
     scan_results = source_file.code.scan(setter_expression)
-    
     return if scan_results.blank?
     
     setters = []
