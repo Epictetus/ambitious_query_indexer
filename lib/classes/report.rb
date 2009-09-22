@@ -7,6 +7,9 @@ class Report
   
   def generate
     report = "The following indexes should improve your application's performance:\n"
+    
+    self.indexes.sort! { |x,y| x.table <=> y.table }
+    
     self.indexes.each do |index|
       report << "  * On the '#{index.table}' table, index these: #{index.fields.join(', ')}\n"
     end
