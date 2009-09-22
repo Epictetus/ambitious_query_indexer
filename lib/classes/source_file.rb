@@ -18,16 +18,9 @@ class SourceFile
     self.code.scan(finder_expression).each do |call|
       object, method, params = call[0], call[1], call[2]
 
-      object_call = ObjectCall.new(:object => object, :method => method, :params => params)
+      object_call = ObjectCall.new(self, :object => object, :method => method, :params => params)
       
-      if not object.is_rails_model?
-        object_setters = object_call.derive_setter_within_source_file(self)
-        if not object_setters.blank?
-          object_calls += object_setters
-        end
-      else
-        object_calls.push << object_call
-      end
+      object_calls.push << object_call
     end
     
     object_calls

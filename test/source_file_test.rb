@@ -55,7 +55,7 @@ class SourceFileTest < ActiveSupport::TestCase
     assert_equal 'new', source_file.object_calls[0].method
     assert_equal [], source_file.object_calls[0].params
 
-    assert_equal 'Article', source_file.object_calls[1].object
+    assert_equal 'a', source_file.object_calls[1].object
     assert_equal 'save!', source_file.object_calls[1].method
     assert_equal [], source_file.object_calls[1].params
   end
