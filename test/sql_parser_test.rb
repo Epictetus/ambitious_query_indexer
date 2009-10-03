@@ -56,4 +56,55 @@ class SQLParserTest < ActiveSupport::TestCase
     assert_equal " `articles` INNER JOIN `comments` ON `comments`.`article_id` = `articles`.`id`", parser.fetch_for_scope(:from)
     assert_equal [TableIndex.new(:table => 'comments', :fields => 'article_id')], parser.indexes_for_scope(:from)
   end
+
+  test "parser can understand aliased tables" do
+    query = %q{SELECT a.id FROM articles AS a WHERE a.title = 'hello'}
+    parser = SQLParser.new
+    parser.parse(query)
+
+    assert_equal "articles.title = 'hello'", parser.fetch_for_scope(:where).strip
+    assert_equal [TableIndex.new(:table => 'articles', :fields => 'title')], parser.indexes_for_scope(:where)
+  end
+  
+  test "parser can understand lazily-aliased tables" do
+    query = %q{SELECT art.id FROM articles art WHERE art.title = 'lazy alias works!'}
+    parser = SQLParser.new
+    parser.parse(query)
+    
+    assert_equal "articles.title = 'lazy alias works!'", parser.fetch_for_scope(:where).strip
+    assert_equal [TableIndex.new(:table => 'articles', :fields => 'title')], parser.indexes_for_scope(:where)    
+  end
+  
+  test "table aliasing works with multiple aliases" do
+    query = %q{SELECT a.id, c.id FROM articles a LEFT JOIN comments AS c ON c.article_id = a.id}
+    parser = SQLParser.new
+    parser.parse(query)
+    
+    assert_equal [['articles','a'], ['comments','c']], parser.table_aliases
+    assert_equal ' articles.id, comments.id ', parser.fetch_for_scope(:select)
+  end
+  
+  test "parser does not confuse lazy table aliasing with sql syntax" do
+    # Otherwise known as 'test to prove previous bugs with this code remain squashed'
+    
+    query = %q{SELECT u.id FROM users u, articles LEFT JOIN comments ON comments.article_id = articles.id WHERE b.user_id = articles.user_id}
+    parser = SQLParser.new
+    parser.parse(query)
+    
+    assert_equal false, parser.table_aliases.include?(['articles','LEFT'])
+    
+    query = %q{SELECT `articles`.* FROM `articles` INNER JOIN `comments` ON `comments`.`article_id` = `articles`.`id`}
+    parser = SQLParser.new
+    parser.parse(query)
+
+    assert_equal false, parser.table_aliases.include?(['articles','INNER'])
+    assert_equal false, parser.table_aliases.include?(['INNER', 'JOIN'])
+    
+    query = %q{SELECT articles.* FROM articles JOIN comments AS c ON c.article_id = comments.id}
+    parser = SQLParser.new
+    parser.parse(query)
+    
+    assert_equal false, parser.table_aliases.include?(['articles','JOIN'])
+    assert_equal [['comments','c']], parser.table_aliases
+  end
 end
