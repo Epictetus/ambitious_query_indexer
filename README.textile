@@ -49,12 +49,12 @@ h3. SQL Optimisation
 
 Enhancements to the SQL optimisation engine:
 
-* Support for JOIN ON
-* Support for HAVING
+* Support for lazier queries - implicit joins and implicit table references ('field' rather than 'table.field')
 * Support for aliased tables (AS)
 * Stronger support for conditionals - including FUNCTION() calls and references to other tables
-* Support for lazier queries - implicit joins and implicit table references ('field' rather than 'table.field')
 * Support for difficult-to-index operators such as LIKE and RLIKE
+* Support for HAVING
+* -Support for JOIN ON-
 
 h3. Object Call location
 
