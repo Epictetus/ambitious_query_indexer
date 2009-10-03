@@ -24,11 +24,11 @@ class SQLParserTest < ActiveSupport::TestCase
   test "parsing pulls fields into the appropriate scopes" do
     parser = setup_parser
     
-    assert_equal parser.fetch_for_scope(:select),   ' * '
-    assert_equal parser.fetch_for_scope(:from),     ' users '
-    assert_equal parser.fetch_for_scope(:where),    " users.name = 'Sam' "
-    assert_equal parser.fetch_for_scope(:group_by), ' users.name '
-    assert_equal parser.fetch_for_scope(:order_by), ' users.id, users.name'
+    assert_equal parser.fetch_for_scope(:select),   '*'
+    assert_equal parser.fetch_for_scope(:from),     'users'
+    assert_equal parser.fetch_for_scope(:where),    "users.name = 'Sam'"
+    assert_equal parser.fetch_for_scope(:group_by), 'users.name'
+    assert_equal parser.fetch_for_scope(:order_by), 'users.id, users.name'
   end
   
   test "parser isn't confused by sql syntax as parts of other strings" do
@@ -37,7 +37,7 @@ class SQLParserTest < ActiveSupport::TestCase
     parser = SQLParser.new
     parser.parse(query)
     
-    assert_equal " airports.name = 'Manchester'", parser.fetch_for_scope(:where)
+    assert_equal "airports.name = 'Manchester'", parser.fetch_for_scope(:where)
   end
     
   test "parser suggests correct indexes" do 
@@ -53,7 +53,7 @@ class SQLParserTest < ActiveSupport::TestCase
     parser = SQLParser.new
     parser.parse(query)
     
-    assert_equal " `articles` INNER JOIN `comments` ON `comments`.`article_id` = `articles`.`id`", parser.fetch_for_scope(:from)
+    assert_equal "`articles` INNER JOIN `comments` ON `comments`.`article_id` = `articles`.`id`", parser.fetch_for_scope(:from)
     assert_equal [TableIndex.new(:table => 'comments', :fields => 'article_id')], parser.indexes_for_scope(:from)
   end
 
@@ -62,7 +62,7 @@ class SQLParserTest < ActiveSupport::TestCase
     parser = SQLParser.new
     parser.parse(query)
 
-    assert_equal "articles.title = 'hello'", parser.fetch_for_scope(:where).strip
+    assert_equal "articles.title = 'hello'", parser.fetch_for_scope(:where)
     assert_equal [TableIndex.new(:table => 'articles', :fields => 'title')], parser.indexes_for_scope(:where)
   end
   
@@ -71,7 +71,7 @@ class SQLParserTest < ActiveSupport::TestCase
     parser = SQLParser.new
     parser.parse(query)
     
-    assert_equal "articles.title = 'lazy alias works!'", parser.fetch_for_scope(:where).strip
+    assert_equal "articles.title = 'lazy alias works!'", parser.fetch_for_scope(:where)
     assert_equal [TableIndex.new(:table => 'articles', :fields => 'title')], parser.indexes_for_scope(:where)    
   end
   
@@ -81,7 +81,7 @@ class SQLParserTest < ActiveSupport::TestCase
     parser.parse(query)
     
     assert_equal [['articles','a'], ['comments','c']], parser.table_aliases
-    assert_equal ' articles.id, comments.id ', parser.fetch_for_scope(:select)
+    assert_equal 'articles.id, comments.id', parser.fetch_for_scope(:select)
   end
   
   test "parser does not confuse lazy table aliasing with sql syntax" do

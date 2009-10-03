@@ -50,7 +50,9 @@ class SQLParser
   
   # Public for testing
   def fetch_for_scope(scope)
-    self.scope_content[scope]
+    content = self.scope_content[scope]
+    return if content.nil?
+    return content.strip
   end
   
   # Public for testing
