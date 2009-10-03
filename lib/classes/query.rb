@@ -28,7 +28,7 @@ class Query
   attr_accessor :parser
   
   def parse_query!
-    return self.parser if not self.parser.blank?
+    return self.parser unless self.parser.blank?
     self.parser = SQLParser.new
     self.parser.parse(self.sql)
   end
