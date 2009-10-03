@@ -47,4 +47,13 @@ class SQLParserTest < ActiveSupport::TestCase
     assert_equal parser.indexes_for_scope(:group_by), [TableIndex.new(:table => 'users', :fields => 'name')]
     assert_equal parser.indexes_for_scope(:order_by), [TableIndex.new(:table => 'users', :fields => 'id'), TableIndex.new(:table => 'users', :fields => 'name')]
   end
+  
+  test "parser can understand joins in table references" do
+    query = %q{SELECT `articles`.* FROM `articles` INNER JOIN `comments` ON `comments`.`article_id` = `articles`.`id`}
+    parser = SQLParser.new
+    parser.parse(query)
+    
+    assert_equal " `articles` INNER JOIN `comments` ON `comments`.`article_id` = `articles`.`id`", parser.fetch_for_scope(:from)
+    assert_equal [TableIndex.new(:table => 'comments', :fields => 'article_id')], parser.indexes_for_scope(:from)
+  end
 end

@@ -11,11 +11,13 @@ class SQLParser
     self.scope_content = {}
     
     smulti :parse, /(#{self.sql_statements.to_regex_alternates})/ do |match, remainder|
+      RAILS_DEFAULT_LOGGER.debug("got #{match}")
       set_current_scope(match)
       parse remainder
     end
     
     smulti :parse, /./ do |match, remainder|
+      RAILS_DEFAULT_LOGGER.debug("got #{match} (#{remainder})")
       append_to_current_scope(match)
       parse remainder
     end

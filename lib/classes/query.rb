@@ -14,7 +14,7 @@ class Query
     
     indexes = []
     
-    [:where, :group_by, :order_by].each do |scope|
+    [:from, :where, :group_by, :order_by].each do |scope|
       scope_indexes = self.parser.indexes_for_scope(scope)
       indexes += scope_indexes unless scope_indexes.nil?
     end
