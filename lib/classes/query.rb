@@ -15,7 +15,7 @@ class Query
     indexes = []
     
     [:from, :where, :group_by, :order_by].each do |scope|
-      scope_indexes = self.parser.indexes_for_scope(scope)
+      scope_indexes = self.parse_data.indexes_for_scope(scope)
       indexes += scope_indexes unless scope_indexes.nil?
     end
     
@@ -25,11 +25,10 @@ class Query
   end
     
   protected
-  attr_accessor :parser
+  attr_accessor :parse_data
   
   def parse_query!
-    return self.parser unless self.parser.blank?
-    self.parser = SQLParser.new
-    self.parser.parse(self.sql)
+    return self.parse_data unless self.parse_data.blank?
+    self.parse_data = SQLParser.new.parse(self.sql)
   end
 end
