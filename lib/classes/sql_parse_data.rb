@@ -60,7 +60,7 @@ class SQLParseData
   def replace_table_aliases
     table_aliases.each do |match|
       self.scope_content.each do |scope, content|
-        content.gsub!(/#{match[1].strip}\./, "#{match[0].strip}.")
+        content.gsub!(/#{match[1]}\./, "#{match[0]}.")
       end
     end
   end
