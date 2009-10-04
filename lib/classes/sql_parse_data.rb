@@ -37,14 +37,12 @@ class SQLParseData
     content
   end
   
-  # Public for testing
   def fetch_for_scope(scope)
     content = self.scope_content[scope]
     return if content.nil?
     return content.strip
   end
   
-  # Public for testing
   def table_aliases
     return [] unless self.fetch_for_scope(:from)
     aliases = self.fetch_for_scope(:from).scan(/([\w\d]+) (?:AS )?([\w\d]+)/)    
@@ -55,11 +53,7 @@ class SQLParseData
       match[0] =~ /^(#{table_references})/i or match[1] =~ /^(#{table_references})/i
     end
   end
-  
-  def finalise!
-    self.replace_table_aliases
-  end
-  
+    
   protected
   attr_accessor :scope_content
 

@@ -27,8 +27,6 @@ class SQLParser
     self.parse_data = SQLParseData.new
     parse_query(query)
 
-    self.parse_data.finalise!
-    
     self.parse_data
   end
 
