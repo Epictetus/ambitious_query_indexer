@@ -32,6 +32,9 @@ class SQLParseData
     end
     
     self.scope_content[scope] << content
+    self.replace_table_aliases
+    
+    content
   end
   
   # Public for testing
