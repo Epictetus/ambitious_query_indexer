@@ -29,6 +29,6 @@ class Query
   
   def parse_query!
     return self.parse_data unless self.parse_data.blank?
-    self.parse_data = SQLParser.new.parse(self.sql)
+    self.parse_data = SQLParser.parse(self.sql)
   end
 end

@@ -7,6 +7,10 @@ require 'modules/common_regex'
 class SQLParser
   include CommonRegex
   
+  def self.parse(query)
+    self.new.parse(query)
+  end
+  
   def initialize
     smulti :parse_query, /(#{self.sql_statements.to_regex_alternates})/ do |match, remainder|
       self.set_current_scope(match)
