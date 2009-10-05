@@ -32,7 +32,7 @@ class SQLParseData
     end
     
     self.scope_content[scope] << content
-    self.replace_table_aliases
+    self.post_process
     
     content
   end
@@ -56,6 +56,10 @@ class SQLParseData
     
   protected
   attr_accessor :scope_content
+  
+  def post_process
+    self.replace_table_aliases
+  end
 
   def replace_table_aliases
     table_aliases.each do |match|
