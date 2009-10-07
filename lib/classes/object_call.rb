@@ -27,11 +27,9 @@ class ObjectCall
     scan_results = self.source_file.code.scan(setter_expression)
     return if scan_results.blank?
     
-    self.instantiators = []
-    
-    scan_results.each do |scan_result|
+    self.instantiators = scan_results.inject([]) do |acc, scan_result|
       next unless scan_result[0].is_rails_model?
-      self.instantiators << ObjectCall.new(self.source_file, :object => scan_result[0], :method => scan_result[1], :params => scan_result[2])
+      acc << ObjectCall.new(self.source_file, :object => scan_result[0], :method => scan_result[1], :params => scan_result[2])
     end
   end
   
@@ -79,11 +77,9 @@ class ObjectCall
   end
   
   def faked_params
-    faked_params = []
-    
     # TODO: Tidy up this messy method
     
-    self.params.each do |param|
+    self.params.inject([]) do |faked_params, param|
       if param =~ /\[\d/
         # Looks like an array
         faked_params << []
@@ -101,7 +97,5 @@ class ObjectCall
         faked_params << 'nil'
       end
     end
-    
-    faked_params
   end
 end
