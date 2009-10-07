@@ -11,8 +11,6 @@ class SourceFile
   end
   
   def object_calls
-    object_calls = []
-
     finder_expression = /(#{common_regex(:variable)}+)\.(#{common_regex(:method)}+)(\(#{common_regex(:params)}+\))?/
     
     object_calls = self.code.scan(finder_expression).collect do |call|
