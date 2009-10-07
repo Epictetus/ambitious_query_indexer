@@ -10,8 +10,8 @@ class QueryScanner
   def initialize(directories)
     self.source_trees = []
     
-    directories.each do |directory|
-      self.source_trees << SourceTree.new(directory)
+    self.source_trees = directories.collect do |directory|
+      SourceTree.new(directory)
     end
   end
   

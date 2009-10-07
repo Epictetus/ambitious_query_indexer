@@ -30,8 +30,8 @@ class TableIndex
     existing_indexes = []
     connection = ActiveRecord::Base.connection
     
-    connection.indexes(self.table).each do |index|
-      existing_indexes << index.columns.sort
+    existing_indexes = connection.indexes(self.table).collect do |index|
+      index.columns.sort
     end
     
     existing_indexes << Array(get_table_primary_key)

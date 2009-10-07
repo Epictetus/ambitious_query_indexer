@@ -15,12 +15,10 @@ class SourceFile
 
     finder_expression = /(#{common_regex(:variable)}+)\.(#{common_regex(:method)}+)(\(#{common_regex(:params)}+\))?/
     
-    self.code.scan(finder_expression).each do |call|
+    object_calls = self.code.scan(finder_expression).collect do |call|
       object, method, params = call[0], call[1], call[2]
 
-      object_call = ObjectCall.new(self, :object => object, :method => method, :params => params)
-      
-      object_calls.push << object_call
+      ObjectCall.new(self, :object => object, :method => method, :params => params)
     end
     
     object_calls

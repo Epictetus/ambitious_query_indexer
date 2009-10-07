@@ -12,18 +12,16 @@ class SQLParseData
     contents = fetch_for_scope(scope)
     return if not contents
 
-    indexes = []
+    # indexes = []
         
     contents.gsub!(/`/,'')
     
-    contents.split(/#{common_regex(:sql_conjunctions)}/i).each do |clause|
+    indexes = contents.split(/#{common_regex(:sql_conjunctions)}/i).collect do |clause|
       scan = clause.match(/([\w\d]+)\.([\w\d]+)\s?/)
-      next if scan.blank?
-    
-      indexes << TableIndex.new(:table => scan.captures[0], :fields => scan.captures[1])
+      TableIndex.new(:table => scan.captures[0], :fields => scan.captures[1]) unless scan.blank?
     end
     
-    indexes.uniq
+    indexes.compact.uniq
   end
 
   def append_to_scope(scope, content)

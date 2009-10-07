@@ -33,12 +33,12 @@ class SourceTree
   def all_object_calls
     object_calls = []
     
+    # Can't collect as will push Array, not contents thereof
     self.files.each do |file|
-      file.object_calls.each do |call|
-        object_calls << call
-      end
+      object_calls += file.object_calls      
     end
     
     object_calls
   end
+  
 end
