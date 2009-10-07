@@ -29,16 +29,10 @@ class SourceTree
     end    
   end
   
-  protected  
+  protected    
   def all_object_calls
-    object_calls = []
-    
-    # Can't collect as will push Array, not contents thereof
-    self.files.each do |file|
-      object_calls += file.object_calls      
+    self.files.inject([]) do |acc, file|
+      acc += file.object_calls
     end
-    
-    object_calls
   end
-  
 end
