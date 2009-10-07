@@ -14,7 +14,8 @@ namespace :ambitious_query_indexer do
     tree << File.join(RAILS_ROOT,'app','helpers')
     tree << File.join(RAILS_ROOT,'app','views')
 
-    indexer = AmbitiousQueryIndexer.new(tree)
-    indexer.analyse
+    scan_results = QueryScanner.parse(tree)
+    
+    puts SummaryReport.generate(:results => scan_results)
   end
 end
