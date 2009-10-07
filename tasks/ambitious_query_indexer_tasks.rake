@@ -1,7 +1,6 @@
 namespace :ambitious_query_indexer do
   desc "Analyse application queries for index quality"
-  task :analyze do
-    
+  task :analyse do
     # Load Rails environment
     RAILS_ENV = 'test'
     require File.join(RAILS_ROOT,'config','environment')
@@ -17,5 +16,9 @@ namespace :ambitious_query_indexer do
     scan_results = QueryScanner.parse(tree)
     
     puts SummaryReport.generate(:results => scan_results)
+  end
+  
+  task :analyze do
+    Rake::Task["ambitious_query_indexer:analyse"].execute
   end
 end
