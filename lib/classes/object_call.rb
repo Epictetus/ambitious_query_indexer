@@ -80,16 +80,20 @@ class ObjectCall
     # TODO: Tidy up this messy method
     
     self.params.inject([]) do |faked_params, param|
-      if param =~ /\[\d/
+      case param
+      when /\[\d/
         # Looks like an array
         faked_params << []
-      elsif param =~ /\[\:[\w\d]*_?id/ or param =~ /^\d+$/
+      when /\[\:[\w\d]*_?id/
         # looks like an id or just a number
         faked_params << 1
-      elsif param =~ /\[[:\w\d]+/
+      when /^\d+$/
+        # looks like an id or just a number
+        faked_params << 1
+      when /\[[:\w\d]+/
         # looks like a hash
         faked_params << {}
-      elsif param =~ /^:([\w\d]+)$/
+      when /^:([\w\d]+)$/
         # looks like a symbol; pass straight through
         faked_params << $1.to_sym
       else
