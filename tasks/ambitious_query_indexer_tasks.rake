@@ -15,7 +15,7 @@ namespace :ambitious_query_indexer do
 
     scan_results = QueryScanner.parse(tree)
     
-    puts SummaryReport.generate(:results => scan_results)
+    puts SummaryReport.view(:results => scan_results)
   end
 
   desc "Analyze application queries for index quality for US English speakers"
