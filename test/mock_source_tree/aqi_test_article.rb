@@ -1,5 +1,5 @@
-class Article < ActiveRecord::Base
-  set_table_name :aqi_test_articles
+class AqiTestArticle < ActiveRecord::Base
+  belongs_to :aqi_test_user
   
   def self.create
     'winner'

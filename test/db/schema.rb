@@ -5,4 +5,7 @@ ActiveRecord::Schema.define(:version => 1) do
   end
   
   add_index :aqi_test_articles, [:user_id, :name]
+  
+  create_table :aqi_test_users, :force => true do |t|
+  end
 end

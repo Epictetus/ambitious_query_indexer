@@ -4,7 +4,7 @@ require 'classes/source_file'
 
 class SourceFileTest < ActiveSupport::TestCase  
   test 'opening and reading basic source file' do
-    file = File.join(File.dirname(__FILE__), 'mock_source_tree', 'articles_controller.rb')
+    file = File.join(File.dirname(__FILE__), 'mock_source_tree', 'aqi_test_articles_controller.rb')
     code = IO.readlines(file).join
     source_file = SourceFile.new(code)
     
@@ -67,6 +67,5 @@ class SourceFileTest < ActiveSupport::TestCase
     
     source_file = SourceFile.new(code)
     assert_equal 0, source_file.object_calls.size
-    
   end
 end
