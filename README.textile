@@ -36,7 +36,6 @@ h2. Upcoming features/enhancements
 
 h3. General
 
-* Auto-generation of migrations
 * Highlighting redundant indexes
 * Ability to pass individual finders or sql queries for index recommendations
 * Support for common conventions in specific plugins - eg 'current_user' for RestfulAuthentication
@@ -44,6 +43,7 @@ h3. General
 * Statistics output - similar to rake stats
 * Support for databases other than MySQL
 * Other optimisation advice - common query smells etc
+* -Auto-generation of migrations-
 
 h3. SQL Optimisation
 
