@@ -21,8 +21,7 @@ class String
   
   def is_rails_model?
     begin
-      constant = self.constantize
-      constant.ancestors.include?(ActiveRecord::Base)
+      self.constantize < ActiveRecord::Base
     rescue NameError
       false
     end
