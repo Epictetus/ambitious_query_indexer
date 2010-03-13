@@ -17,22 +17,22 @@ class StringTest < ActiveSupport::TestCase
   end
   
   test "rails artefact sensing for views" do
-    assert_equal 4,   'show.rhtml'.is_rails_view?
-    assert_equal 4,   'show.html.erb'.is_rails_view?
-    assert_equal 4,   'show.html.haml'.is_rails_view?
-    assert_equal nil, 'show.html'.is_rails_view?
-    assert_equal nil, 'string_helper.rb'.is_rails_view?
-    assert_equal nil, 'string_controller.rb'.is_rails_view?
+    assert_equal true,   'show.rhtml'.is_rails_view?
+    assert_equal true,   'show.html.erb'.is_rails_view?
+    assert_equal true,   'show.html.haml'.is_rails_view?
+    assert_equal false, 'show.html'.is_rails_view?
+    assert_equal false, 'string_helper.rb'.is_rails_view?
+    assert_equal false, 'string_controller.rb'.is_rails_view?
   end
   
   test "rails artefact sensing for helpers" do 
-    assert_equal  6, 'string_helper.rb'.is_rails_helper?
-    assert_equal  nil, 'string.rb'.is_rails_helper?
+    assert_equal  true, 'string_helper.rb'.is_rails_helper?
+    assert_equal  false, 'string.rb'.is_rails_helper?
   end
   
   test "rails artefact sensing for controllers" do
-    assert_equal  6, 'string_controller.rb'.is_rails_controller?
-    assert_equal  nil, 'string.rb'.is_rails_controller?
+    assert_equal  true, 'string_controller.rb'.is_rails_controller?
+    assert_equal  false, 'string.rb'.is_rails_controller?
   end
     
   test "rails artefact sensing for models" do

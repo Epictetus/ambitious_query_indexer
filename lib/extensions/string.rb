@@ -8,15 +8,15 @@ class String
   end
   
   def is_rails_view?
-    self =~ /\.html\.(erb|haml)/ or self =~ /\.rhtml/
+    ((self =~ /\.html\.(erb|haml)/ or self =~ /\.rhtml/) ? true : false)
   end
   
   def is_rails_controller?
-    self =~ /_controller\.rb$/i
+    (self =~ /_controller\.rb$/i ? true : false)
   end
   
   def is_rails_helper?
-    self =~ /_helper\.rb$/i
+    (self =~ /_helper\.rb$/i ? true : false)
   end
   
   def as_rails_model
