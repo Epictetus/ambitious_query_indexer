@@ -13,10 +13,16 @@ class SourceFile
   def object_calls
     finder_expression = /(#{common_regex(:variable)}+)\.(#{common_regex(:method)}+)(\(#{common_regex(:params)}+\))?/
     
-    object_calls = self.code.scan(finder_expression).collect do |call|
-      object, method, params = call[0], call[1], call[2]
+    object_calls = []
+    
+    self.code.each do |line|
+      next if line =~ /^\s*#/      # We don't analyse commented-out lines
 
-      ObjectCall.new(self, :object => object, :method => method, :params => params)
+      object_calls += line.scan(finder_expression).collect do |call|
+        object, method, params = call[0], call[1], call[2]
+
+        ObjectCall.new(self, :object => object, :method => method, :params => params)
+      end
     end
     
     object_calls

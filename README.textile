@@ -61,7 +61,7 @@ h3. Object Call location
 Enhancements to the code that deals with finding the methods that run queries:
 
 * Better support for associations and named_scopes and other methods which run queries
-* Support for commented-out lines
+* -Support for commented-out lines-
 
 h2. Feedback
 

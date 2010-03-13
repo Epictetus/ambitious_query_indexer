@@ -59,4 +59,14 @@ class SourceFileTest < ActiveSupport::TestCase
     assert_equal 'save!', source_file.object_calls[1].method
     assert_equal [], source_file.object_calls[1].params
   end
+  
+  test "Object call location respects commented-out lines" do
+    code = <<-RUBYCODE
+      # Article.blah(1,2)    
+    RUBYCODE
+    
+    source_file = SourceFile.new(code)
+    assert_equal 0, source_file.object_calls.size
+    
+  end
 end
