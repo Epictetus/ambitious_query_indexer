@@ -15,7 +15,7 @@ class SourceTree
       next unless file.is_rails_helper? or file.is_rails_controller? or file.is_rails_view?
 
       code = IO.readlines(file).join
-      file = SourceFile.new(code)
+      file = SourceFile.new(code, :file_name => file)
       
       files << file
     end
