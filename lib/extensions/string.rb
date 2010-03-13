@@ -19,9 +19,13 @@ class String
     self =~ /_helper\.rb$/i
   end
   
+  def as_rails_model
+    File.split(self).last.gsub('.rb','').camelize
+  end
+  
   def is_rails_model?
     begin
-      self.constantize < ActiveRecord::Base
+      self.as_rails_model.constantize < ActiveRecord::Base
     rescue NameError
       false
     end

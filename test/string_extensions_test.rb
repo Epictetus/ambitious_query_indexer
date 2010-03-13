@@ -8,8 +8,6 @@ end
 class StringTest < ActiveSupport::TestCase
   # Where testing for assert_equal [N], this is the position at which
   # the matching pattern appears - would prefer this to be true/false
-  
-  
   test "parametize gives a list of parameters" do 
     assert_equal ['1', '2', '3'], '(1,2,3)'.parametize
   end
@@ -40,5 +38,10 @@ class StringTest < ActiveSupport::TestCase
   test "rails artefact sensing for models" do
     assert_equal  true, 'MockModel'.is_rails_model?
     assert_equal  false, 'NoModel'.is_rails_model?  
+  end
+  
+  test "rails model name formatter" do
+    assert_equal 'Model', '/dev/null/model.rb'.as_rails_model
+    assert_equal 'MockModel', '/dev/null/mock_model.rb'.as_rails_model
   end
 end

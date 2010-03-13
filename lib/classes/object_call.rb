@@ -35,7 +35,7 @@ class ObjectCall
   
   def execute!
     if self.instantiators.blank?
-      execute_single_operation(self.object.constantize) if self.object.is_rails_model?
+      execute_single_operation(self.object.camelize.constantize) if self.object.is_rails_model?
     else
       self.instantiators.each do |instantiator|
         receiver = instantiator.execute_single_operation(instantiator.object.constantize) if instantiator.object.is_rails_model?

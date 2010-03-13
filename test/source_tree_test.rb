@@ -1,5 +1,4 @@
 require 'test_helper'
-
 require 'classes/source_tree'
 
 class SourceTreeTest < ActiveSupport::TestCase  
@@ -10,6 +9,11 @@ class SourceTreeTest < ActiveSupport::TestCase
     # but also a model and a random ruby file which should be ignored
     # '.' and '..' should also be ignored
 
-    assert_equal 3, tree.files.size
+    assert_equal 5, tree.files.size
+  end
+  
+  test "will grab all associations from rails models" do
+    tree = SourceTree.new(File.dirname(__FILE__) + '/mock_source_tree')
+    assert_equal 2, tree.all_associations.size
   end
 end

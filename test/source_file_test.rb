@@ -71,12 +71,12 @@ class SourceFileTest < ActiveSupport::TestCase
   
   test "Generating class name" do
     source_file = SourceFile.new('', :file_name => 'blah.rb')
-    assert_equal 'Blah', source_file.class_name
+    assert_equal 'Blah', source_file.send(:class_name)
   end
   
   test "Getting associations" do
     # Relies upon this class being required already
-    source_file = SourceFile.new('', :file_name => 'aqi_test_article.rb')
-    assert_equal true, source_file.associations.include?(:aqi_test_user)
+    source_file = SourceFile.new('', :file_name => 'aqi_test_article.rb')    
+    assert_equal 1, source_file.associations.count
   end
 end

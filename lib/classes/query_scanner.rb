@@ -35,6 +35,10 @@ class QueryScanner
     self.saved_queries.each do |query|
       self.suggested_indexes += query.required_indexes unless query.required_indexes.nil?
     end
+    
+    # self.suggested_indexes += self.source_trees.collect do |tree|
+    #   tree.indexes_for_associations
+    # end
 
     self.suggested_indexes.uniq!    
 

@@ -39,12 +39,17 @@ class SourceFile
       return nil
     end
     
-    return unless klass < ActiveRecord::Base
+    return unless self.is_rails_model?
     
-    klass.reflections
+    klass.reflect_on_all_associations
   end
   
+  protected
   def class_name
-    file_name.gsub('.rb','').camelize
+    file_name.as_rails_model
   end
+  
+  def is_rails_model?
+    self.class_name.is_rails_model?
+  end  
 end

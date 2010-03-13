@@ -12,7 +12,7 @@ class SourceTree
     files = []
 
     Find.find(self.path) do |file|
-      next unless file.is_rails_helper? or file.is_rails_controller? or file.is_rails_view?
+      next unless file.is_rails_helper? or file.is_rails_controller? or file.is_rails_view? or file.is_rails_model?
 
       code = IO.readlines(file).join
       file = SourceFile.new(code, :file_name => file)
@@ -27,6 +27,16 @@ class SourceTree
     self.all_object_calls.uniq.each do |call|
       call.execute!
     end    
+  end
+  
+  def all_associations
+    associations = [] 
+    
+    self.files.each do |file|
+      associations += file.associations unless file.associations.blank?
+    end
+    
+    associations
   end
   
   protected    
