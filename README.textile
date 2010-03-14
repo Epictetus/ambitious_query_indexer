@@ -36,9 +36,9 @@ h2. Upcoming features/enhancements
 
 h3. General
 
-* Highlighting redundant indexes
+* Rails 3 support
+* More-sensibly named rake tasks
 * Ability to pass individual finders or sql queries for index recommendations
-* Support for common conventions in specific plugins - eg 'current_user' for RestfulAuthentication
 * Support for ambitious_model_loader and similar plugins
 * Statistics output - similar to rake stats
 * Support for databases other than MySQL
@@ -56,16 +56,24 @@ Enhancements to the SQL optimisation engine:
 * -Support for JOIN ON-
 * -Support for aliased tables (AS)-
 
+h3. Associations
+
+* has_many
+* has_many
+* has_and_belongs_to_many
+* has_one
+* -belongs_to-
+
 h3. Object Call location
 
 Enhancements to the code that deals with finding the methods that run queries:
 
 * Support for scopes within models
-* -Support for associations-
 * -Support for commented-out lines-
+
 
 h2. Feedback
 
 All feedback, bug reports and thoughts on this gratefully received.
 
-Copyright (c) 2009 Sam Phillips, released under the MIT license
+Copyright (c) 2009-10 Sam Phillips, released under the MIT license
