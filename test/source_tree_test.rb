@@ -14,6 +14,6 @@ class SourceTreeTest < ActiveSupport::TestCase
   
   test "will grab all associations from rails models" do
     tree = SourceTree.new(File.dirname(__FILE__) + '/mock_source_tree')
-    assert_equal 2, tree.all_associations.size
+    assert_equal 2, tree.send(:all_associations).size
   end
 end

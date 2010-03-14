@@ -14,15 +14,15 @@ class TableIndexTest < ActiveSupport::TestCase
   end
   
   test "checking existence of database index" do
-    index_a = TableIndex.new(:table => 'aqi_test_articles', :fields => ['user_id', 'name'])
-    index_b = TableIndex.new(:table => 'aqi_test_articles', :fields => ['user_id'])
+    index_a = TableIndex.new(:table => 'aqi_test_articles', :fields => ['aqi_test_user_id', 'name'])
+    index_b = TableIndex.new(:table => 'aqi_test_articles', :fields => ['aqi_test_user_id'])
         
     assert_equal true,  index_a.exists_in_database?
     assert_equal false, index_b.exists_in_database?
   end
   
   test "order of TableIndex#fields does not affect TableIndex#exists_in_database?" do
-    index_a = TableIndex.new(:table => 'aqi_test_articles', :fields => ['name', 'user_id'])
+    index_a = TableIndex.new(:table => 'aqi_test_articles', :fields => ['name', 'aqi_test_user_id'])
     assert_equal true, index_a.exists_in_database?
   end
   

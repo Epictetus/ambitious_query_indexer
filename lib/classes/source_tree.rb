@@ -23,12 +23,25 @@ class SourceTree
     files
   end
 
-  def execute_all_object_calls!
+  def execute_all_object_calls
     self.all_object_calls.uniq.each do |call|
       call.execute!
     end    
   end
   
+  def execute_all_associations
+    self.all_associations.each do |association|
+      association.execute!
+    end
+  end
+    
+  protected    
+  def all_object_calls
+    self.files.inject([]) do |acc, file|
+      acc += file.object_calls
+    end
+  end
+
   def all_associations
     associations = [] 
     
@@ -37,12 +50,5 @@ class SourceTree
     end
     
     associations
-  end
-  
-  protected    
-  def all_object_calls
-    self.files.inject([]) do |acc, file|
-      acc += file.object_calls
-    end
   end
 end

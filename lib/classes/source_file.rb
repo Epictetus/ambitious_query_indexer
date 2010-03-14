@@ -1,4 +1,5 @@
 require 'classes/object_call'
+require 'classes/association'
 require 'modules/common_regex'
 
 class SourceFile
@@ -41,7 +42,9 @@ class SourceFile
     
     return unless self.is_rails_model?
     
-    klass.reflect_on_all_associations
+    klass.reflect_on_all_associations.collect do |reflection|
+      Association.new(:reflection => reflection, :class_name => self.class_name)
+    end
   end
   
   protected

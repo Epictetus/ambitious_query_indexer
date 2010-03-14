@@ -26,7 +26,8 @@ class QueryScanner
   
   def scan_source!
     self.source_trees.each do |tree|
-      tree.execute_all_object_calls!
+      tree.execute_all_object_calls
+      tree.execute_all_associations
     end
         
     self.saved_queries = ActiveRecord::Base.saved_queries
@@ -35,11 +36,7 @@ class QueryScanner
     self.saved_queries.each do |query|
       self.suggested_indexes += query.required_indexes unless query.required_indexes.nil?
     end
-    
-    # self.suggested_indexes += self.source_trees.collect do |tree|
-    #   tree.indexes_for_associations
-    # end
-
+        
     self.suggested_indexes.uniq!    
 
     self.suggested_indexes.delete_if do |index|

@@ -12,6 +12,7 @@ namespace :ambitious_query_indexer do
     tree << File.join(RAILS_ROOT,'app','controllers')  
     tree << File.join(RAILS_ROOT,'app','helpers')
     tree << File.join(RAILS_ROOT,'app','views')
+    tree << File.join(RAILS_ROOT,'app','models')
 
     scan_results = QueryScanner.parse(tree)
     
