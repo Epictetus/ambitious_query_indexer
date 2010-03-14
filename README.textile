@@ -14,7 +14,7 @@ h3. Dependencies
 
 This plugin uses the 'multi' gem. Install with:
 
-@sudo gem install multi@
+@sudo install multi@
 
 h2. Usage
 

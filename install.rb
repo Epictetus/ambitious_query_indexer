@@ -1,1 +1,1 @@
-puts "Please install the 'multi' gem - sudo gem install multi"
+puts "Please install the 'multi' gem - gem install multi"
