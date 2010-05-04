@@ -64,6 +64,7 @@ class ObjectCall
   
   def execute_single_operation(receiver)
     begin
+      RAILS_DEFAULT_LOGGER.debug(".... [AQI]: Calling #{receiver}.#{self.method}(#{self.faked_params.inspect})")
       # in a begin/rescue because the potential for this to go wrong south of here is currently quite large.
       if self.params.blank?
         receiver.send(self.method.to_sym)
