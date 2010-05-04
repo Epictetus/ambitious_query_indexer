@@ -37,7 +37,7 @@ class StringTest < ActiveSupport::TestCase
     
   test "rails artefact sensing for models" do
     assert_equal  true, 'MockModel'.is_rails_model?
-    assert_equal  false, 'NoModel'.is_rails_model?  
+    assert_equal  false, 'NoModel'.is_rails_model?
   end
   
   test "rails model name formatter" do

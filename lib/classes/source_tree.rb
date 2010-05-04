@@ -1,5 +1,6 @@
 require 'classes/source_file'
 require 'find'
+require 'fileutils'
 
 class SourceTree
   attr_accessor :path
@@ -12,8 +13,9 @@ class SourceTree
     files = []
 
     Find.find(self.path) do |file|
+      next if File::directory?(file)
       next unless file.is_rails_helper? or file.is_rails_controller? or file.is_rails_view? or file.is_rails_model?
-
+      
       code = IO.readlines(file).join
       file = SourceFile.new(code, :file_name => file)
       

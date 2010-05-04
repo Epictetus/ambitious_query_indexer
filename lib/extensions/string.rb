@@ -24,6 +24,7 @@ class String
   end
   
   def is_rails_model?
+    # return false unless self =~ /\.rb$/
     begin
       self.as_rails_model.constantize < ActiveRecord::Base
     rescue NameError
